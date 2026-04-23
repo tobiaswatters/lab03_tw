@@ -226,24 +226,28 @@ bool IntBST::remove(int value){
         }
         delete n;
         return true;
-    } 
-    else {
-        Node* successor = n->right;
-        while (successor->left) 
-            successor = successor->left;
+    } else { // two children
+        Node* successor = getSuccessorNode(n->info);
 
-        n->info = successor->info;
+        int temp = successor->info;
 
-        if (successor->parent->left == successor)
-            successor->parent->left = successor->right;
-        else
-            successor->parent->right = successor->right;
+        remove(successor->info);
 
-        if (successor->right)
-            successor->right->parent = successor->parent;
+        n->info = temp;
 
+        return true;
+/*
+        if (successor == n->right) {
+            n->right = child;
+        } else {
+            successor->parent->left = child;
+        }
+        if (child) {
+            child->parent = successor->parent;
+        }
         delete successor;
         return true;
+    */
     }
 
     return false;
