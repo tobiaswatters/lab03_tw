@@ -142,11 +142,12 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
             predecessor = predecessor->right;
         return predecessor;
     } else if (n->parent) {
-        predecessor = n->parent;
+        predecessor = n;
         while (predecessor->parent) {
-            if (predecessor->info < n->info) return predecessor;
+            if (predecessor == predecessor->parent->right)
+                return predecessor->parent;
             predecessor = predecessor->parent;
-        }
+        }   
     }
     return 0;
 }
@@ -166,12 +167,13 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
         while (successor->left) 
             successor = successor->left;
         return successor;
-    } else if (n->parent) { // traverse back up tree to find successor
-        successor = n->parent;
+    } else if (n->parent) {
+        successor = n;
         while (successor->parent) {
-            if (successor->info > n->info) return successor;
+            if (successor == successor->parent->left)
+                return successor->parent;
             successor = successor->parent;
-        }
+        }   
     }
     return 0;
 }
@@ -236,18 +238,6 @@ bool IntBST::remove(int value){
         n->info = temp;
 
         return true;
-/*
-        if (successor == n->right) {
-            n->right = child;
-        } else {
-            successor->parent->left = child;
-        }
-        if (child) {
-            child->parent = successor->parent;
-        }
-        delete successor;
-        return true;
-    */
     }
 
     return false;
