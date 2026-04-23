@@ -229,16 +229,21 @@ bool IntBST::remove(int value){
         delete n;
         return true;
     } else { // two children
-        Node* successor = getSuccessorNode(n->info);
+        Node* successor = n->right;
+        while (successor->left)
+            successor = successor->left;
 
-        int temp = successor->info;
-
-        remove(successor->info);
-
-        n->info = temp;
+        n->info = successor->info;
+        Node* child = successor->right;
+        if (successor->parent->left == successor)
+            successor->parent->left = child;
+        else
+            successor->parent->right = child;
+        if (child)
+            child->parent = successor->parent;
+        delete successor;
 
         return true;
     }
-
     return false;
 }
