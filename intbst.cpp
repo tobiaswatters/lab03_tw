@@ -149,7 +149,7 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
             predecessor = predecessor->parent;
         }   
     }
-    return 0;
+    return nullptr;
 }
 
 // returns the predecessor value of the given value or 0 if there is none
@@ -175,7 +175,7 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
             successor = successor->parent;
         }   
     }
-    return 0;
+    return nullptr;
 }
 
 // returns the successor value of the given value or 0 if there is none
